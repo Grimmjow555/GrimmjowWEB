@@ -10,42 +10,38 @@
   --color-border: var(--border);
   --color-panel: var(--panel);
   --font-app: var(--type-sans);
-  --font-serif: var(--type-serif);
   --font-mono: var(--type-mono);
 }
 
 :root,
-[data-theme="light"] {
-  color-scheme: light;
-  --background: #f4f1e8;
-  --foreground: #0e0e10;
-  --accent: #006d75;
-  --accent-bright: #24dce8;
-  --accent-foreground: #f4f1e8;
-  --muted: #e7e2d6;
-  --muted-foreground: #62615c;
-  --border: #171719;
-  --panel: #faf8f1;
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #07090b;
+  --foreground: #e6edf3;
+  --accent: #22d3ee;
+  --accent-bright: #67e8f9;
+  --accent-foreground: #031014;
+  --muted: #111820;
+  --muted-foreground: #8b98a5;
+  --border: #26313a;
+  --panel: #0d1217;
   --type-sans:
-    "Noto Sans SC Variable", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC Variable", "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", system-ui, sans-serif;
-  --type-serif:
-    "Noto Serif SC Variable", "Noto Serif SC", "Songti SC", "STSong",
-    "Source Han Serif SC", serif;
   --type-mono:
-    "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono",
+    "JetBrains Mono Variable", "SFMono-Regular", Consolas, "Liberation Mono",
     "Noto Sans SC Variable", monospace;
 }
 
-[data-theme="dark"] {
-  color-scheme: dark;
-  --background: #0b0d0e;
-  --foreground: #f0ede3;
-  --accent: #36dce7;
-  --accent-bright: #24dce8;
-  --accent-foreground: #081011;
-  --muted: #1b2224;
-  --muted-foreground: #a8afa9;
-  --border: #dfe4dc;
-  --panel: #111517;
+[data-theme="light"] {
+  color-scheme: light;
+  --background: #f6f8fa;
+  --foreground: #11161c;
+  --accent: #087ea4;
+  --accent-bright: #0891b2;
+  --accent-foreground: #ffffff;
+  --muted: #eaeef2;
+  --muted-foreground: #57606a;
+  --border: #d0d7de;
+  --panel: #ffffff;
 }

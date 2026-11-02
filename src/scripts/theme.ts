@@ -1,4 +1,4 @@
-const THEME_KEY = "theme";
+const THEME_KEY = "grimmjow-theme";
 const LIGHT = "light";
 const DARK = "dark";
 
@@ -11,10 +11,7 @@ function getStoredTheme(): string | null {
 }
 
 function getPreferredTheme(): string {
-  return (
-    getStoredTheme() ??
-    (window.matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT)
-  );
+  return getStoredTheme() ?? DARK;
 }
 
 function persist(theme: string): void {

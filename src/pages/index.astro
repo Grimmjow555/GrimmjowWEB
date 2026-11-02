@@ -9,7 +9,6 @@ import NoteCard from "@/components/NoteCard.astro";
 import ThoughtEntry from "@/components/ThoughtEntry.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import { getPublishedEntries } from "@/utils/content";
-import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const [allNotes, allProjects, allThoughts] = await Promise.all([
@@ -33,7 +32,6 @@ const notesHref = getRelativeLocaleUrl(locale, "notes");
 const projectsHref = getRelativeLocaleUrl(locale, "projects");
 const thoughtsHref = getRelativeLocaleUrl(locale, "thoughts");
 const aboutHref = getRelativeLocaleUrl(locale, "about");
-const heroImage = getAssetPath("ink/hero-brush.svg");
 ---
 
 <Layout>
@@ -41,118 +39,130 @@ const heroImage = getAssetPath("ink/hero-brush.svg");
 
   <main id="main-content">
     <section
-      class="app-layout grid min-h-[calc(100svh-4.5rem)] items-center gap-8 overflow-x-clip py-10 md:grid-cols-12 md:py-16"
+      class="app-layout grid min-h-[calc(100svh-4rem)] items-center gap-12 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:py-24"
     >
-      <div class="relative z-10 md:col-span-7 lg:col-span-6">
-        <div class="mb-7 flex flex-wrap items-center gap-3">
-          <span class="chapter-label">CHAPTER 01</span>
-          <span
-            class="text-muted-foreground font-mono text-[0.68rem] tracking-[0.22em]"
-          >
-            NOTES / WORKS / MOMENTS
+      <div>
+        <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs">
+          <span class="inline-flex items-center gap-2">
+            <span
+              class="bg-accent size-1.5 rounded-full shadow-[0_0_10px_var(--accent)]"
+              aria-hidden="true"></span>
+            <span class="text-accent">SYSTEM ONLINE</span>
           </span>
+          <span class="text-border" aria-hidden="true">/</span>
+          <span class="text-muted-foreground">~/grimmjow</span>
         </div>
 
-        <h1 class="font-serif leading-[0.84] font-black tracking-[-0.055em]">
-          <span
-            class="block max-w-full text-[clamp(3.25rem,8.7vw,7.6rem)] uppercase"
-            >Grimmjow</span
-          >
-          <span
-            class="mt-3 block text-[clamp(1.8rem,4vw,3.4rem)] tracking-[-0.03em]"
-          >
-            在墨迹与代码之间
-          </span>
+        <p class="chapter-label mb-4">HELLO, WORLD</p>
+        <h1
+          class="font-mono text-[clamp(3.25rem,9vw,7.5rem)] leading-[0.9] font-semibold tracking-[-0.075em]"
+        >
+          Grimmjow<span class="terminal-cursor" aria-hidden="true"></span>
         </h1>
+        <h2
+          class="text-muted-foreground mt-5 font-mono text-base font-medium tracking-tight sm:text-xl"
+        >
+          build · learn · iterate
+        </h2>
 
-        <p class="mt-7 max-w-xl text-base leading-8 sm:text-lg">
-          这里记录正在理解的知识、已经落笔的作品，以及那些没有大纲、却值得留下的瞬间。
+        <p class="mt-7 max-w-xl leading-8">
+          在代码、知识与创作之间持续构建。这里记录学习过程、个人作品，以及那些零散但真实的念头。
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-9 flex flex-wrap gap-3">
           <a
             href={notesHref}
-            class="bg-foreground text-background hover:bg-accent-bright hover:text-foreground border-foreground border-2 px-5 py-3 font-bold no-underline shadow-[5px_5px_0_var(--accent-bright)] transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+            class="bg-accent text-accent-foreground hover:bg-accent-bright inline-flex rounded border border-transparent px-4 py-2.5 font-mono text-sm font-semibold no-underline transition-colors"
           >
-            翻阅笔记
+            读取笔记 <span aria-hidden="true">→</span>
           </a>
           <a
             href={projectsHref}
-            class="bg-background hover:bg-foreground hover:text-background border-foreground border-2 px-5 py-3 font-bold no-underline transition-colors"
+            class="border-border text-foreground hover:border-accent/50 hover:text-accent inline-flex rounded border bg-transparent px-4 py-2.5 font-mono text-sm font-semibold no-underline transition-colors"
           >
-            查看作品
+            浏览作品 <span aria-hidden="true">↗</span>
           </a>
         </div>
 
         <dl
-          class="border-foreground mt-10 grid max-w-lg grid-cols-3 border-y-2 py-4"
+          class="border-border mt-12 flex max-w-lg flex-wrap gap-x-10 gap-y-3 border-t pt-5 font-mono"
         >
-          <div class="border-foreground border-r px-3 first:pl-0">
-            <dt
-              class="text-muted-foreground font-mono text-[0.65rem] tracking-wider"
-            >
-              NOTE
-            </dt>
-            <dd class="mt-1 font-serif text-2xl font-black">
+          <div class="flex items-baseline gap-2">
+            <dt class="text-muted-foreground text-[0.65rem]">NOTES</dt>
+            <dd class="text-accent text-lg">
               {String(notes.length).padStart(2, "0")}
             </dd>
           </div>
-          <div class="border-foreground border-r px-3">
-            <dt
-              class="text-muted-foreground font-mono text-[0.65rem] tracking-wider"
-            >
-              WORK
-            </dt>
-            <dd class="mt-1 font-serif text-2xl font-black">
+          <div class="flex items-baseline gap-2">
+            <dt class="text-muted-foreground text-[0.65rem]">WORKS</dt>
+            <dd class="text-accent text-lg">
               {String(projects.length).padStart(2, "0")}
             </dd>
           </div>
-          <div class="px-3">
-            <dt
-              class="text-muted-foreground font-mono text-[0.65rem] tracking-wider"
-            >
-              MOMENT
-            </dt>
-            <dd class="mt-1 font-serif text-2xl font-black">
+          <div class="flex items-baseline gap-2">
+            <dt class="text-muted-foreground text-[0.65rem]">THOUGHTS</dt>
+            <dd class="text-accent text-lg">
               {String(thoughts.length).padStart(2, "0")}
             </dd>
           </div>
         </dl>
       </div>
 
-      <figure class="relative md:col-span-5 lg:col-span-6">
-        <div
-          class="border-foreground bg-panel absolute -inset-3 rotate-2 border-2"
-          aria-hidden="true"
-        >
+      <div class="terminal-panel overflow-hidden font-mono text-sm">
+        <div class="terminal-bar">
+          <span class="terminal-dot terminal-dot-accent" aria-hidden="true"
+          ></span>
+          <span class="terminal-dot" aria-hidden="true"></span>
+          <span class="terminal-dot" aria-hidden="true"></span>
+          <span class="ms-2">~/profile.sh</span>
+          <span class="ms-auto">zsh</span>
         </div>
-        <img
-          src={heroImage}
-          alt="原创黑白水墨抽象图形，留白中划过一道电光青"
-          width="1200"
-          height="900"
-          class="border-foreground relative z-10 w-full border-2 object-cover"
-        />
-        <figcaption
-          class="bg-foreground text-background absolute right-4 bottom-4 z-20 max-w-[12rem] px-3 py-2 font-mono text-[0.65rem] leading-5 tracking-wider"
-        >
-          INK STUDY / 001<br />留白不是空缺，是呼吸。
-        </figcaption>
-      </figure>
+        <div class="space-y-5 p-5 sm:p-7">
+          <div>
+            <p><span class="text-accent">$</span> whoami</p>
+            <p class="text-muted-foreground mt-1 pl-4">Grimmjow</p>
+          </div>
+          <div>
+            <p><span class="text-accent">$</span> cat focus.txt</p>
+            <p class="text-muted-foreground mt-1 pl-4 leading-7">
+              learning in public<br />
+              shipping small ideas<br />
+              writing down the process
+            </p>
+          </div>
+          <div>
+            <p><span class="text-accent">$</span> ls ./content</p>
+            <div class="text-muted-foreground mt-1 grid grid-cols-2 gap-2 pl-4">
+              <span>notes/</span>
+              <span>projects/</span>
+              <span>thoughts/</span>
+              <span class="text-accent">about.md</span>
+            </div>
+          </div>
+          <div
+            class="border-border flex items-center gap-2 border-t pt-5 text-xs"
+          >
+            <span class="bg-accent size-1.5 rounded-full" aria-hidden="true"
+            ></span>
+            <span class="text-muted-foreground">status:</span>
+            <span class="text-foreground">building in public</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="app-layout pb-16">
-      <section aria-labelledby="projects-title" class="pt-8">
+      <section aria-labelledby="projects-title" class="pt-10">
         <div id="projects-title">
           <SectionHeading
-            index="章二 / 02"
-            title="精选作品"
+            index="01 / WORK"
+            title="Selected projects"
             href={projectsHref}
           />
         </div>
         {
           visibleProjects.length > 0 ? (
-            <div class="grid gap-7 md:grid-cols-2">
+            <div class="grid gap-6 md:grid-cols-2">
               {visibleProjects.map((project, index) => (
                 <div
                   class:list={[
@@ -167,19 +177,19 @@ const heroImage = getAssetPath("ink/hero-brush.svg");
               ))}
             </div>
           ) : (
-            <p class="border-foreground text-muted-foreground border border-dashed p-6">
-              作品正在绘制中。
+            <p class="border-border text-muted-foreground rounded border border-dashed p-6 font-mono text-sm">
+              // no public projects yet
             </p>
           )
         }
       </section>
 
-      <div class="mt-20 grid gap-14 lg:grid-cols-[1.45fr_0.75fr]">
+      <div class="mt-24 grid gap-16 lg:grid-cols-[1.35fr_0.65fr]">
         <section aria-labelledby="notes-title">
           <div id="notes-title">
             <SectionHeading
-              index="章三 / 03"
-              title="最近笔记"
+              index="02 / NOTES"
+              title="Latest notes"
               href={notesHref}
             />
           </div>
@@ -194,12 +204,12 @@ const heroImage = getAssetPath("ink/hero-brush.svg");
 
         <section
           aria-labelledby="thoughts-title"
-          class="lg:border-foreground lg:border-l-2 lg:pl-8"
+          class="lg:border-border lg:border-l lg:pl-8"
         >
           <div id="thoughts-title">
             <SectionHeading
-              index="章四 / 04"
-              title="最近碎念"
+              index="03 / LOGS"
+              title="Recent thoughts"
               href={thoughtsHref}
             />
           </div>
@@ -214,19 +224,19 @@ const heroImage = getAssetPath("ink/hero-brush.svg");
       </div>
 
       <section
-        class="border-foreground bg-foreground text-background mt-16 grid gap-6 border-2 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8"
+        class="border-border bg-panel/70 mt-20 flex flex-col gap-6 rounded-lg border p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
       >
         <div>
-          <p class="text-accent-bright font-mono text-xs tracking-[0.3em]">
-            NEXT CHAPTER
+          <p class="text-accent font-mono text-[0.68rem] tracking-[0.16em]">
+            NEXT / ABOUT
           </p>
-          <h2 class="mt-2 font-serif text-3xl font-black">
-            故事还缺一段自我介绍。
+          <h2 class="mt-2 font-mono text-2xl font-semibold">
+            维护一个持续运行的个人系统。
           </h2>
         </div>
         <a
           href={aboutHref}
-          class="bg-accent-bright text-foreground border-background border-2 px-5 py-3 text-center font-bold no-underline transition-transform hover:-translate-y-1"
+          class="border-accent/30 text-accent hover:bg-accent hover:text-accent-foreground shrink-0 rounded border px-4 py-2.5 text-center font-mono text-sm font-semibold no-underline transition-colors"
         >
           关于我 →
         </a>

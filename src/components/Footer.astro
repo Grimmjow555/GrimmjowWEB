@@ -13,39 +13,31 @@ const rssHref = getAssetPath("rss.xml");
 
 <footer class:list={["app-layout mt-16", { "mt-auto": !noMarginTop }]}>
   <div
-    class="border-foreground grid gap-5 border-t-2 py-8 text-sm md:grid-cols-[1fr_auto] md:items-end"
+    class="border-border grid gap-5 border-t py-8 text-sm md:grid-cols-[1fr_auto] md:items-end"
   >
     <div>
-      <div class="flex items-center gap-3">
-        <span
-          class="bg-foreground text-background grid size-8 place-items-center font-serif font-bold"
-          >G</span
-        >
-        <strong class="font-serif text-lg tracking-widest"
+      <div class="flex items-center gap-2.5">
+        <span class="text-accent font-mono text-sm font-semibold">&gt;_</span>
+        <strong class="font-mono text-sm tracking-[0.12em] uppercase"
           >{config.site.title}</strong
         >
       </div>
-      <p class="text-muted-foreground mt-3 max-w-xl leading-7">
-        在墨迹与代码之间，记录学习、作品和那些没有大纲的瞬间。
+      <p class="text-muted-foreground mt-3 max-w-xl text-sm leading-6">
+        记录学习、作品和那些没有大纲的瞬间。
       </p>
     </div>
     <div
-      class="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs"
+      class="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.68rem]"
     >
       <span>© {year} Grimmjow</span>
-      <a
-        href={rssHref}
-        class="hover:text-accent underline decoration-dotted underline-offset-4"
-      >
-        RSS
-      </a>
+      <a href={rssHref} class="hover:text-accent transition-colors">RSS</a>
       {
         config.site.adminUrl && (
           <a
             href={config.site.adminUrl}
             target="_blank"
             rel="noreferrer"
-            class="hover:text-accent underline decoration-dotted underline-offset-4"
+            class="hover:text-accent transition-colors"
           >
             内容管理
           </a>
@@ -55,9 +47,9 @@ const rssHref = getAssetPath("rss.xml");
         href="https://github.com/satnaing/astro-paper"
         target="_blank"
         rel="noreferrer"
-        class="hover:text-accent underline decoration-dotted underline-offset-4"
+        class="hover:text-accent transition-colors"
       >
-        Based on AstroPaper
+        AstroPaper
       </a>
     </div>
   </div>

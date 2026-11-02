@@ -35,7 +35,7 @@ const tags = getUniqueTags(allEntries);
         tags.map(({ tag, tagName }) => {
           const count = getEntriesByTag(allEntries, tag).length;
           return (
-            <li class="border-foreground bg-panel flex items-center justify-between gap-4 border-2 p-4">
+            <li class="border-border bg-panel/60 flex items-center justify-between gap-4 rounded-md border p-4">
               <Tag {tag} {tagName} />
               <span class="text-muted-foreground font-mono text-xs">
                 {String(count).padStart(2, "0")}

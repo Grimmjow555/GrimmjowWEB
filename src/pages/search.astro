@@ -86,8 +86,8 @@ const pagefindBundlePath = getAssetPath("pagefind/");
     --pagefind-ui-border: var(--border);
     --pagefind-ui-primary: var(--accent);
     --pagefind-ui-tag: var(--muted);
-    --pagefind-ui-border-radius: 0;
-    --pagefind-ui-border-width: 2px;
+    --pagefind-ui-border-radius: 6px;
+    --pagefind-ui-border-width: 1px;
     --pagefind-ui-image-border-radius: 0;
     --pagefind-ui-image-box-ratio: 5 / 3;
   }
@@ -97,25 +97,29 @@ const pagefindBundlePath = getAssetPath("pagefind/");
   }
 
   #pagefind-search input {
-    border: 2px solid var(--border);
-    font-size: 1.1rem;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    font-size: 1rem;
   }
 
   #pagefind-search input:focus-visible {
-    outline: 2px dashed var(--accent);
+    outline: 1px solid var(--accent);
     outline-offset: 2px;
   }
 
   #pagefind-search .pagefind-ui__result {
-    border-bottom: 1px dashed var(--border);
-    padding-block: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-block: 1.15rem;
   }
 
   #pagefind-search .pagefind-ui__result-title a {
     color: var(--foreground);
-    font-family: var(--font-serif);
-    font-size: 1.35rem;
-    text-decoration: underline dashed var(--accent);
-    text-underline-offset: 4px;
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+    }
   }
 </style>

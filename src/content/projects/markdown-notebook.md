@@ -3,7 +3,7 @@ pubDatetime: 2026-10-20T06:40:00.000Z
 title: Markdown 知识花园
 description: 一个把学习笔记、双向链接和项目索引组织成静态知识库的示例作品。
 cover: /ink/project-notebook.svg
-coverAlt: 黑色背景上的米白墨迹与电光青箭头
+coverAlt: 暗色终端中的文件树与青色命令行提示符
 stack:
   - Markdown
   - Node.js

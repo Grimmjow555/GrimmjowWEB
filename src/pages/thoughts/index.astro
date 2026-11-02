@@ -24,7 +24,7 @@ const thoughts = getPublishedEntries(await getCollection("thoughts"));
     eyebrow="MOMENTS / 03"
   >
     <section class="grid gap-0 lg:grid-cols-[1fr_14rem]" data-pagefind-body>
-      <div class="border-foreground border-t">
+      <div class="border-border border-t">
         {
           thoughts.map((thought, index) => (
             <ThoughtEntry thought={thought} index={index} />
@@ -32,22 +32,21 @@ const thoughts = getPublishedEntries(await getCollection("thoughts"));
         }
         {
           thoughts.length === 0 && (
-            <p class="border-foreground border border-dashed p-8">
-              这里还没留下墨迹。
+            <p class="border-border text-muted-foreground rounded border border-dashed p-8 font-mono text-sm">
+              // no logs yet
             </p>
           )
         }
       </div>
       <aside
-        class="border-foreground mt-8 border-t-2 pt-5 lg:mt-0 lg:border-t-0 lg:border-l-2 lg:pt-0 lg:pl-7"
+        class="border-border mt-8 border-t pt-5 lg:mt-0 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-7"
       >
         <p
           class="text-muted-foreground font-mono text-[0.65rem] leading-6 tracking-[0.2em]"
         >
           FRAGMENTS<br />ARE ALSO<br />ARCHIVES.
         </p>
-        <div class="bg-accent-bright border-foreground mt-7 h-2 w-20 border-2">
-        </div>
+        <div class="bg-accent mt-7 h-1 w-16 rounded-full"></div>
       </aside>
     </section>
   </Main>

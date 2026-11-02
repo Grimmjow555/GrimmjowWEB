@@ -16,7 +16,7 @@ const locale = Astro.currentLocale ?? config.site.lang;
   <a
     href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}
     class:list={[
-      "border-foreground hover:bg-foreground hover:text-background inline-flex border border-dashed px-2 py-1 font-mono no-underline transition-colors",
+      "border-border bg-muted/60 text-muted-foreground hover:border-accent/50 hover:text-accent inline-flex rounded border px-2 py-1 font-mono no-underline transition-colors",
       { "text-xs": size === "sm" },
       { "text-sm": size === "lg" },
     ]}

@@ -48,6 +48,18 @@ test("theme choice persists across navigation", async ({ page }, testInfo) => {
   await expect(page.locator("html")).toHaveAttribute("data-theme", nextTheme);
 });
 
+test("site defaults to the dark terminal theme", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+  const background = await page.evaluate(() =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--background")
+      .trim()
+  );
+  expect(background.toLowerCase()).toBe("#07090b");
+});
+
 test("mobile menu exposes all primary sections", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "mobile", "Mobile-only behavior");
   await page.goto("/");
@@ -100,7 +112,7 @@ test("custom 404 page is available", async ({ page }) => {
   const response = await page.goto("/404.html");
   expect(response?.ok()).toBeTruthy();
   await expect(
-    page.getByRole("heading", { name: "这一页被墨水吞掉了。" })
+    page.getByRole("heading", { name: "这一页被删掉了。" })
   ).toBeVisible();
 });
 
@@ -108,7 +120,7 @@ test("unknown route returns the custom 404 page", async ({ page }) => {
   const response = await page.goto("/this-page-does-not-exist/");
   expect(response?.status()).toBe(404);
   await expect(
-    page.getByRole("heading", { name: "这一页被墨水吞掉了。" })
+    page.getByRole("heading", { name: "这一页被删掉了。" })
   ).toBeVisible();
 });
 

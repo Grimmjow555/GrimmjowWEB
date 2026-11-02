@@ -46,7 +46,7 @@ export default {
     tagsTitle: "标签索引",
     tagsDesc: "循着关键词，找到散落在页面里的线索。",
     notesTitle: "学习笔记",
-    notesDesc: "把理解写下来，让知识留下墨迹。",
+    notesDesc: "把理解写下来，形成可复用的知识。",
     projectsTitle: "作品",
     projectsDesc: "一些已经落笔、仍在生长或暂时收刀的作品。",
     thoughtsTitle: "碎碎念",
@@ -68,7 +68,7 @@ export default {
   },
   notFound: {
     title: "404 页面不存在",
-    message: "这一页被墨水吞掉了",
+    message: "这一页被删掉了",
     goHome: "回到首页",
   },
 } satisfies UIStrings;

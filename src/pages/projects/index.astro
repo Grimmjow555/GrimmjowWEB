@@ -31,8 +31,8 @@ const projects = getPublishedEntries(await getCollection("projects"));
           ))}
         </div>
       ) : (
-        <p class="border-foreground border border-dashed p-8">
-          作品正在绘制中。
+        <p class="border-border text-muted-foreground rounded border border-dashed p-8 font-mono text-sm">
+          // no public projects yet
         </p>
       )
     }

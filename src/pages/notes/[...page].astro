@@ -29,7 +29,7 @@ const { page } = Astro.props;
   <Breadcrumb />
   <Main
     pageTitle="学习笔记"
-    pageDesc="把理解写下来，让知识留下墨迹。这里按发布时间归档，可用标签、搜索与 RSS 继续追踪。"
+    pageDesc="把理解写下来，形成可复用的知识。这里按发布时间归档，可用标签、搜索与 RSS 继续追踪。"
     eyebrow="NOTEBOOK / 01"
   >
     {
@@ -40,8 +40,8 @@ const { page } = Astro.props;
           ))}
         </div>
       ) : (
-        <p class="border-foreground border border-dashed p-8">
-          还没有公开笔记。
+        <p class="border-border text-muted-foreground rounded border border-dashed p-8 font-mono text-sm">
+          // no public notes yet
         </p>
       )
     }

@@ -2,16 +2,16 @@
 
 @layer base {
   .app-prose {
-    @apply prose prose-neutral max-w-none;
-    @apply prose-headings:font-serif prose-headings:font-black;
+    @apply prose prose-neutral dark:prose-invert max-w-none;
+    @apply prose-headings:font-mono prose-headings:font-semibold prose-headings:tracking-tight;
     @apply prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground;
-    @apply prose-a:text-foreground prose-a:decoration-dashed prose-a:decoration-accent prose-a:underline-offset-4 hover:prose-a:text-accent;
-    @apply prose-blockquote:border-accent prose-blockquote:bg-muted/45 prose-blockquote:py-1 prose-blockquote:not-italic;
+    @apply prose-a:text-accent prose-a:no-underline hover:prose-a:underline;
+    @apply prose-blockquote:border-accent/60 prose-blockquote:bg-panel prose-blockquote:py-1 prose-blockquote:not-italic;
     @apply prose-code:text-foreground prose-code:before:content-none prose-code:after:content-none;
-    @apply prose-hr:border-border prose-img:border-border prose-img:border-2;
+    @apply prose-hr:border-border prose-img:border-border prose-img:border;
 
-    font-size: 1.05rem;
-    line-height: 1.9;
+    font-size: 1.02rem;
+    line-height: 1.85;
 
     code,
     pre {
@@ -19,11 +19,11 @@
     }
 
     h2 {
-      @apply border-foreground mt-12 border-b pb-2;
+      @apply border-border mt-12 border-b pb-2 text-2xl;
     }
 
     h3 {
-      @apply mt-8;
+      @apply mt-8 text-xl;
     }
 
     p,
@@ -37,7 +37,7 @@
     }
 
     code:not(.astro-code code) {
-      @apply bg-muted rounded-none px-1.5 py-0.5 font-mono text-[0.9em];
+      @apply bg-muted border-border rounded border px-1.5 py-0.5 font-mono text-[0.88em];
     }
 
     pre {
@@ -56,7 +56,7 @@
     }
 
     .table-wrapper {
-      @apply border-foreground my-7 overflow-x-auto border;
+      @apply border-border my-7 overflow-x-auto border;
     }
 
     .katex-display {
@@ -65,7 +65,7 @@
   }
 
   .astro-code {
-    @apply outline-border flex border-0 bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+    @apply border-border flex border bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
     font-family: var(--type-mono);
   }
 
@@ -75,13 +75,13 @@
 
   .astro-code {
     .line.diff.add {
-      @apply relative inline-block w-full bg-emerald-400/20 before:absolute before:-left-3 before:text-emerald-500 before:content-['+'];
+      @apply relative inline-block w-full bg-emerald-400/10 before:absolute before:-left-3 before:text-emerald-400 before:content-['+'];
     }
     .line.diff.remove {
-      @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+      @apply relative inline-block w-full bg-red-500/10 before:absolute before:-left-3 before:text-red-400 before:content-['-'];
     }
     .line.highlighted {
-      @apply inline-block w-full bg-slate-400/20;
+      @apply inline-block w-full bg-cyan-400/10;
     }
     .highlighted-word {
       @apply border-border rounded-sm border px-0.5 py-px;

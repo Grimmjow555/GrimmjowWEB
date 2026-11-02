@@ -1,6 +1,6 @@
 # GrimmjowWEB
 
-一个以黑白水墨漫画为视觉语言的中文个人网站，记录学习笔记、作品和碎碎念。网站使用 Astro 构建为纯静态站点，访客无需登录，内容通过 Markdown/MDX 与 Git 发布。
+一个以暗色终端极简风为视觉语言的中文个人网站，记录学习笔记、作品和碎碎念。网站使用 Astro 构建为纯静态站点，访客无需登录，内容通过 Markdown/MDX 与 Git 发布。
 
 ## 技术栈
 
@@ -95,7 +95,7 @@ featured: false
 pubDatetime: 2026-11-02T10:00:00+08:00
 title: 项目名称
 description: 一句话介绍
-cover: /ink/example.svg
+cover: /uploads/example.webp
 coverAlt: 封面图片说明
 stack:
   - Astro
@@ -129,7 +129,7 @@ mood: 平静
 - Pages CMS 地址：`astro-paper.config.ts` 中的 `site.adminUrl`
 - 颜色、字体和主题令牌：`src/styles/theme.css`
 - 首页 Hero：`src/pages/index.astro`
-- 原创水墨素材：`public/ink/`
+- 暗色终端视觉素材：`public/ink/`
 
 头像和社交链接当前保持为示例状态。填写真实资料后，不需要修改内容模型。
 
@@ -157,4 +157,4 @@ BASE_PATH=/GrimmjowWEB npm run build
 
 ## 许可
 
-本项目基于 MIT 许可的 [AstroPaper](https://github.com/satnaing/astro-paper) 改造，原始版权与许可见 [LICENSE](./LICENSE)。水墨图形为本项目原创抽象素材，不使用《BLEACH》的角色、标志或原作画面。
+本项目基于 MIT 许可的 [AstroPaper](https://github.com/satnaing/astro-paper) 改造，原始版权与许可见 [LICENSE](./LICENSE)。站点图形为本项目原创素材。

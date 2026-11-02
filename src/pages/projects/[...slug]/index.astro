@@ -67,37 +67,32 @@ const statusLabels = {
   <main id="main-content" class="app-layout pt-8 pb-10" data-pagefind-body>
     <a
       href={projectsHref}
-      class="font-mono text-xs font-bold underline decoration-dashed underline-offset-4"
+      class="text-muted-foreground hover:text-accent font-mono text-xs no-underline transition-colors"
     >
-      ← 返回作品
+      &lt; back_to_projects
     </a>
 
     <section class="mt-8 grid gap-9 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
       <figure class="relative">
-        <div
-          class="border-foreground bg-accent-bright absolute inset-3 z-0 rotate-1 border-2"
-          aria-hidden="true"
-        >
-        </div>
         <img
           src={coverUrl}
           alt={coverAlt}
           width="1200"
           height="720"
-          class="border-foreground relative z-10 w-full border-2 object-cover"
+          class="border-border relative w-full rounded-md border object-cover"
         />
       </figure>
       <div class="lg:pb-3">
         <div class="flex flex-wrap items-center gap-3">
           <span
-            class="bg-foreground text-background px-2 py-1 font-mono text-xs font-bold tracking-wider"
+            class="border-accent/30 bg-accent/10 text-accent rounded border px-2 py-1 font-mono text-[0.65rem]"
           >
             {statusLabels[status]}
           </span>
           <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
         </div>
         <h1
-          class="mt-5 font-serif text-4xl leading-tight font-black sm:text-6xl"
+          class="mt-5 font-mono text-3xl leading-tight font-semibold tracking-tight sm:text-5xl"
         >
           {title}
         </h1>
@@ -107,7 +102,7 @@ const statusLabels = {
         <div class="mt-6 flex flex-wrap gap-2">
           {
             stack.map(tech => (
-              <span class="border-foreground bg-panel border px-2 py-1 font-mono text-xs">
+              <span class="border-border bg-muted/50 text-muted-foreground rounded border px-2 py-1 font-mono text-xs">
                 {tech}
               </span>
             ))
@@ -121,7 +116,7 @@ const statusLabels = {
                   href={repoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  class="bg-foreground text-background hover:bg-accent-bright hover:text-foreground border-foreground border-2 px-4 py-2 font-bold no-underline transition-colors"
+                  class="bg-accent text-accent-foreground hover:bg-accent-bright rounded border border-transparent px-4 py-2 font-mono text-sm font-semibold no-underline transition-colors"
                 >
                   源代码 ↗
                 </a>
@@ -131,7 +126,7 @@ const statusLabels = {
                   href={demoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  class="hover:bg-foreground hover:text-background border-foreground border-2 px-4 py-2 font-bold no-underline transition-colors"
+                  class="border-border hover:border-accent/50 hover:text-accent rounded border px-4 py-2 font-mono text-sm font-semibold no-underline transition-colors"
                 >
                   在线演示 ↗
                 </a>
@@ -142,7 +137,7 @@ const statusLabels = {
       </div>
     </section>
 
-    <div class="border-foreground mx-auto mt-14 max-w-4xl border-t-2 pt-10">
+    <div class="border-border mx-auto mt-14 max-w-4xl border-t pt-10">
       <article id="article" class="app-prose">
         <Content />
       </article>
@@ -162,9 +157,9 @@ const statusLabels = {
     <div class="mt-10 text-right">
       <a
         href="#top"
-        class="font-mono text-xs font-bold underline decoration-dashed underline-offset-4"
+        class="text-muted-foreground hover:text-accent font-mono text-xs no-underline"
       >
-        返回顶部 ↑
+        back_to_top ↑
       </a>
     </div>
   </main>

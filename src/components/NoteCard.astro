@@ -19,20 +19,20 @@ const tags = slugifyAll(data.tags);
 ---
 
 <article
-  class="group border-foreground bg-background grid border-2 border-r-0 border-l-0 py-6 first:border-t-0 md:grid-cols-[5rem_1fr_auto] md:gap-6"
+  class="group border-border hover:bg-panel/35 grid border-b py-6 transition-colors md:grid-cols-[4rem_1fr_auto] md:gap-6"
 >
-  <span class="text-muted-foreground font-mono text-xs tracking-[0.2em]">
-    {String(index + 1).padStart(2, "0")}
+  <span class="text-muted-foreground font-mono text-[0.68rem]">
+    [{String(index + 1).padStart(2, "0")}]
   </span>
   <div>
     <a href={href} class="no-underline">
       <h3
-        class="group-hover:text-accent font-serif text-2xl leading-tight font-black transition-colors"
+        class="group-hover:text-accent font-mono text-lg leading-snug font-semibold tracking-tight transition-colors"
       >
         {data.title}
       </h3>
     </a>
-    <p class="text-muted-foreground mt-3 max-w-2xl leading-7">
+    <p class="text-muted-foreground mt-3 max-w-2xl text-sm leading-6">
       {data.description}
     </p>
     <ul class="mt-4 flex flex-wrap gap-2">
@@ -51,9 +51,9 @@ const tags = slugifyAll(data.tags);
     />
     <a
       href={href}
-      class="group-hover:bg-accent-bright border-foreground mt-4 inline-flex border-b py-1 font-mono text-xs font-bold no-underline"
+      class="text-muted-foreground group-hover:text-accent mt-4 inline-flex font-mono text-[0.7rem] no-underline transition-colors"
     >
-      阅读笔记 →
+      cat note.md →
     </a>
   </div>
 </article>

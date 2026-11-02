@@ -18,32 +18,32 @@ const anchor = `thought-${thought.id}`;
 
 <article
   id={anchor}
-  class="border-foreground relative grid gap-4 border-b border-dashed py-7 md:grid-cols-[7rem_1fr]"
+  class="border-border relative grid gap-4 border-b py-7 md:grid-cols-[6rem_1fr]"
 >
   <div>
     <Datetime pubDatetime={thought.data.pubDatetime} />
-    <span class="text-muted-foreground mt-2 block font-mono text-xs">
-      {String(index + 1).padStart(2, "0")} / 片刻
+    <span class="text-muted-foreground mt-2 block font-mono text-[0.65rem]">
+      LOG_{String(index + 1).padStart(2, "0")}
     </span>
   </div>
-  <div class="relative">
+  <div class="border-border relative border-s pl-5">
     <span
-      class="bg-accent-bright absolute top-0 -left-1 h-8 w-1"
+      class="bg-accent absolute top-1.5 -left-[3.5px] size-1.5 rounded-full shadow-[0_0_9px_var(--accent)]"
       aria-hidden="true"></span>
     {
       thought.data.title && (
-        <h2 class="mb-3 pl-4 font-serif text-2xl font-black">
+        <h2 class="mb-3 font-mono text-lg font-semibold tracking-tight">
           {thought.data.title}
         </h2>
       )
     }
-    <div class:list={["app-prose max-w-2xl", { "pl-4": thought.data.title }]}>
+    <div class="app-prose max-w-2xl">
       <Content />
     </div>
     <div class="mt-4 flex flex-wrap items-center gap-3">
       {
         thought.data.mood && (
-          <span class="border-foreground bg-muted px-2 py-1 font-mono text-xs">
+          <span class="border-border bg-muted text-muted-foreground rounded border px-2 py-1 font-mono text-[0.65rem]">
             mood / {thought.data.mood}
           </span>
         )
