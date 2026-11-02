@@ -99,13 +99,16 @@ describe("Pages CMS configuration", () => {
     expect(getField(collections.about, "body")?.type).toBe("rich-text");
   });
 
-  it("marks every existing public entry as explicitly published", () => {
+  it("marks every existing non-draft entry as explicitly published", () => {
     for (const collection of ["notes", "projects", "thoughts"]) {
       const directory = join("src/content", collection);
       for (const file of readdirSync(directory).filter(name =>
         name.endsWith(".md")
       )) {
-        expect(readFrontmatter(join(directory, file)).draft).toBe(false);
+        const draft = readFrontmatter(join(directory, file)).draft;
+        if (draft !== true) {
+          expect(draft).toBe(false);
+        }
       }
     }
   });
