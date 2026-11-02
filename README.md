@@ -32,6 +32,31 @@ npm run build
 npm run preview
 ```
 
+## 在线编辑与发布
+
+网站使用 [Pages CMS](https://app.pagescms.org) 编辑仓库中的 Markdown，不需要数据库或自建后台。
+
+管理入口：
+
+```text
+https://app.pagescms.org/Grimmjow555/GrimmjowWEB/main
+```
+
+也可以访问本站 `/admin/` 自动跳转。首次使用需要：
+
+1. 使用 GitHub 账号登录 Pages CMS。
+2. 安装 Pages CMS GitHub App。
+3. 只授权 `Grimmjow555/GrimmjowWEB` 仓库的 Contents 读写权限。
+
+保存内容会直接提交到 `main` 并触发 GitHub Actions。确认内容后取消“草稿”并保存；通常约 1–2 分钟后上线。
+
+- 新建学习笔记、作品和碎碎念默认是草稿。
+- 文件名决定公开 URL，建议使用英文或拼音 slug。
+- 上传图片保存在 `public/uploads/`，支持 JPEG、PNG 和 WebP。
+- 网站不接收发布前预览；检查 CMS 编辑器内容后再取消草稿。
+- 发布失败时查看 GitHub Actions；需要恢复时使用 Git 提交历史回滚。
+- 网站只保存公开内容。GitHub App 授权和访问凭证由 Pages CMS 管理，不写入仓库。
+
 ## 内容目录
 
 | 内容     | 目录                    | 公开路径            |
@@ -101,6 +126,7 @@ mood: 平静
 ## 个性化
 
 - 站点名称、简介、作者、社交链接和首页数量：`astro-paper.config.ts`
+- Pages CMS 地址：`astro-paper.config.ts` 中的 `site.adminUrl`
 - 颜色、字体和主题令牌：`src/styles/theme.css`
 - 首页 Hero：`src/pages/index.astro`
 - 原创水墨素材：`public/ink/`

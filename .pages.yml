@@ -1,0 +1,213 @@
+media:
+  input: public/uploads
+  output: /uploads
+  extensions:
+    - jpg
+    - jpeg
+    - png
+    - webp
+  categories:
+    - image
+  rename: safe
+
+content:
+  - name: notes
+    label: 学习笔记
+    type: collection
+    path: src/content/notes
+    format: yaml-frontmatter
+    filename:
+      template: "{fields.title | slugify}.md"
+      field: create
+    view:
+      fields:
+        - title
+        - pubDatetime
+        - draft
+      primary: title
+      sort:
+        - pubDatetime
+      default:
+        sort: pubDatetime
+        order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 摘要
+        type: text
+        required: true
+        description: 用于列表卡片、搜索结果和 SEO。
+      - name: pubDatetime
+        label: 发布日期
+        type: date
+        required: true
+      - name: modDatetime
+        label: 更新日期
+        type: date
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+        required: true
+      - name: featured
+        label: 精选
+        type: boolean
+        default: false
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: true
+        description: 勾选时不会发布；确认内容后取消勾选并保存。
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+        description: 支持 Markdown、代码块、图片与 LaTeX 公式。
+
+  - name: projects
+    label: 作品
+    type: collection
+    path: src/content/projects
+    format: yaml-frontmatter
+    filename:
+      template: "{fields.title | slugify}.md"
+      field: create
+    view:
+      fields:
+        - title
+        - pubDatetime
+        - status
+        - draft
+      primary: title
+      sort:
+        - pubDatetime
+      default:
+        sort: pubDatetime
+        order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 摘要
+        type: text
+        required: true
+      - name: pubDatetime
+        label: 发布日期
+        type: date
+        required: true
+      - name: cover
+        label: 封面
+        type: image
+        required: true
+      - name: coverAlt
+        label: 封面说明
+        type: string
+        required: true
+        description: 为无法看到图片的访客描述封面内容。
+      - name: stack
+        label: 技术栈
+        type: string
+        list: true
+        required: true
+      - name: status
+        label: 状态
+        type: select
+        required: true
+        options:
+          - label: 进行中
+            value: active
+          - label: 已完成
+            value: completed
+          - label: 已归档
+            value: archived
+      - name: repoUrl
+        label: 仓库地址
+        type: string
+      - name: demoUrl
+        label: 演示地址
+        type: string
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: featured
+        label: 精选
+        type: boolean
+        default: false
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: true
+        description: 勾选时不会发布；确认内容后取消勾选并保存。
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+
+  - name: thoughts
+    label: 碎碎念
+    type: collection
+    path: src/content/thoughts
+    format: yaml-frontmatter
+    filename:
+      template: "{fields.title | slugify}.md"
+      field: create
+    view:
+      fields:
+        - pubDatetime
+        - title
+        - mood
+        - draft
+      primary: title
+      sort:
+        - pubDatetime
+      default:
+        sort: pubDatetime
+        order: desc
+    fields:
+      - name: pubDatetime
+        label: 发布日期
+        type: date
+        required: true
+      - name: title
+        label: 标题
+        type: string
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: mood
+        label: 心情
+        type: string
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: true
+        description: 勾选时不会发布；确认内容后取消勾选并保存。
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+
+  - name: about
+    label: 关于页
+    type: file
+    path: src/content/pages/about.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 页面描述
+        type: text
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true

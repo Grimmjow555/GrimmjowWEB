@@ -19,6 +19,8 @@ interface SiteConfig {
   dir?: "ltr" | "rtl" | "auto";
   /** Google Search Console verification meta tag value */
   googleVerification?: string;
+  /** Hosted CMS URL used by the admin shortcut and footer management link */
+  adminUrl?: string;
 }
 
 interface ContentConfig {
@@ -114,7 +116,7 @@ type ResolvedSiteConfig = Required<
     | "ogImage"
   >
 > &
-  Pick<SiteConfig, "profile" | "googleVerification">;
+  Pick<SiteConfig, "profile" | "googleVerification" | "adminUrl">;
 
 export interface ResolvedAstroPaperConfig {
   site: ResolvedSiteConfig;

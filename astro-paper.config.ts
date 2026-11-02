@@ -16,6 +16,7 @@ export default defineAstroPaperConfig({
     lang: "zh-CN",
     timezone: "Asia/Shanghai",
     dir: "ltr",
+    adminUrl: "https://app.pagescms.org/Grimmjow555/GrimmjowWEB/main",
   },
   content: {
     perPage: 8,

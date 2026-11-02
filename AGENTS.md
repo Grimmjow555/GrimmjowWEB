@@ -118,6 +118,16 @@ npm run preview
 - 构建必须同时完成 Astro 类型检查、静态页面生成和 Pagefind 索引。
 - GitHub Pages 子路径验收使用 `BASE_PATH=/GrimmjowWEB npm run build`，并检查内部链接与静态资源。
 
+## 在线编辑与媒体
+
+- Pages CMS 配置位于根目录 `.pages.yml`；修改内容字段时必须同时更新 Zod Schema、CMS 配置、README 和配置测试。
+- Pages CMS 地址由 `site.adminUrl` 集中配置，本站入口为 `/admin/`；管理页必须保持 `noindex, nofollow` 并从 Sitemap 排除。
+- 新学习笔记、作品和碎碎念默认 `draft: true`；现有公开内容必须显式设置 `draft: false`。
+- 文件名是公开 URL 的 slug，建议使用英文或拼音；页面标题可以继续使用中文。
+- 图片上传目录固定为 `public/uploads/`，允许 JPEG、PNG、WebP；不要把临时文件、密钥或非公开资料提交到该目录。
+- 不把 GitHub Token、OAuth secret 或其他访问凭证写入仓库。GitHub App 授权由 Pages CMS 托管。
+- 保存内容会直接提交 `main`；发布失败时保留上一份线上构建，修复内容或回滚 Git 提交后重新触发 Actions。
+
 ## 发布与许可
 
 - GitHub Actions 从 `GITHUB_REPOSITORY` 推导站点地址和 `BASE_PATH`，不要硬编码用户名。

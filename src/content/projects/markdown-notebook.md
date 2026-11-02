@@ -12,6 +12,7 @@ tags:
   - 知识管理
   - 写作
 featured: true
+draft: false
 ---
 
 这是一个用于展示作品详情布局的示例项目。它把不同来源的 Markdown 笔记整理为可搜索、可链接的静态知识花园。

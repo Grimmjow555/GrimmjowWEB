@@ -6,6 +6,7 @@ tags:
   - Astro
   - TypeScript
 featured: false
+draft: false
 ---
 
 静态站点不等于放弃类型安全。Astro Content Collections 会在构建时读取 Markdown/MDX，并用 Zod 校验每一条内容。

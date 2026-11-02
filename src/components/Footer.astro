@@ -39,6 +39,18 @@ const rssHref = getAssetPath("rss.xml");
       >
         RSS
       </a>
+      {
+        config.site.adminUrl && (
+          <a
+            href={config.site.adminUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="hover:text-accent underline decoration-dotted underline-offset-4"
+          >
+            内容管理
+          </a>
+        )
+      }
       <a
         href="https://github.com/satnaing/astro-paper"
         target="_blank"

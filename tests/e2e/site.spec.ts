@@ -12,6 +12,7 @@ const publicRoutes = [
   "/search/",
   "/about/",
 ];
+const pagesCmsUrl = "https://app.pagescms.org/Grimmjow555/GrimmjowWEB/main";
 
 test("all primary routes render without horizontal overflow", async ({
   page,
@@ -156,4 +157,35 @@ test("primary pages emit no browser console errors", async ({ page }) => {
 
   expect(errors).toEqual([]);
   expect(externalRequests).toEqual([]);
+});
+
+test("admin shortcut points to Pages CMS and is excluded from indexing", async ({
+  request,
+}) => {
+  const response = await request.get("/admin/");
+  expect(response.ok()).toBeTruthy();
+  const html = await response.text();
+
+  expect(html).toContain('content="noindex, nofollow"');
+  expect(html).toContain(pagesCmsUrl);
+  expect(html).toContain("进入内容管理");
+});
+
+test("footer exposes the content management shortcut", async ({ page }) => {
+  await page.goto("/");
+  const link = page.getByRole("link", { name: "内容管理" });
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute("href", pagesCmsUrl);
+});
+
+test("admin shortcut is excluded from the sitemap", async ({ request }) => {
+  const index = await request.get("/sitemap-index.xml");
+  expect(index.ok()).toBeTruthy();
+  const sitemapPath = (await index.text()).match(/<loc>(.*?)<\/loc>/)?.[1];
+  expect(sitemapPath).toBeTruthy();
+
+  const sitemapUrl = new URL(sitemapPath ?? "");
+  const sitemap = await request.get(sitemapUrl.pathname);
+  expect(sitemap.ok()).toBeTruthy();
+  expect(await sitemap.text()).not.toContain("/admin/");
 });
