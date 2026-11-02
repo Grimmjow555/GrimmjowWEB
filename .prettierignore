@@ -21,3 +21,6 @@
 
 # Ignore MDX files
 *.mdx
+
+# CMS-managed Markdown is formatted by Pages CMS.
+/src/content/**/*.md
