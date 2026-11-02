@@ -1,14 +1,14 @@
 ---
-pubDatetime: 2026-10-18T08:10:00.000Z
-title: Astro Content Collections 让内容在构建时报错
+title: Astro Content Collections 让内容在构建时报错1
 description: 用 Zod 定义 frontmatter，把内容错误提前到构建阶段，而不是等浏览器里出现空白。
+pubDatetime: 2026-11-02
+modDatetime: 2026-11-02
 tags:
   - Astro
   - TypeScript
 featured: false
 draft: false
 ---
-
 静态站点不等于放弃类型安全。Astro Content Collections 会在构建时读取 Markdown/MDX，并用 Zod 校验每一条内容。
 
 ## 一个最小 Schema
