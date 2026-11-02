@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Tag from "@/components/Tag.astro";
+import { getEntriesByTag, getUniqueTags } from "@/utils/content";
+import config from "@/config";
+
+const [notes, projects, thoughts] = await Promise.all([
+  getCollection("notes"),
+  getCollection("projects"),
+  getCollection("thoughts"),
+]);
+
+const allEntries = [...notes, ...projects, ...thoughts];
+const tags = getUniqueTags(allEntries);
+---
+
+<Layout
+  title={`标签索引 | ${config.site.title}`}
+  description="按关键词浏览学习笔记、作品与碎碎念。"
+>
+  <Header />
+  <Breadcrumb />
+  <Main
+    pageTitle="标签索引"
+    pageDesc="循着关键词，找到散落在笔记、作品与碎碎念之间的线索。"
+    eyebrow="INDEX / TAGS"
+  >
+    <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        tags.map(({ tag, tagName }) => {
+          const count = getEntriesByTag(allEntries, tag).length;
+          return (
+            <li class="border-foreground bg-panel flex items-center justify-between gap-4 border-2 p-4">
+              <Tag {tag} {tagName} />
+              <span class="text-muted-foreground font-mono text-xs">
+                {String(count).padStart(2, "0")}
+              </span>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

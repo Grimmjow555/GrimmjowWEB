@@ -1,0 +1,52 @@
+---
+import config from "@/config";
+import { getAssetPath } from "@/utils/withBase";
+
+type Props = {
+  noMarginTop?: boolean;
+};
+
+const { noMarginTop = false } = Astro.props;
+const year = new Date().getFullYear();
+const rssHref = getAssetPath("rss.xml");
+---
+
+<footer class:list={["app-layout mt-16", { "mt-auto": !noMarginTop }]}>
+  <div
+    class="border-foreground grid gap-5 border-t-2 py-8 text-sm md:grid-cols-[1fr_auto] md:items-end"
+  >
+    <div>
+      <div class="flex items-center gap-3">
+        <span
+          class="bg-foreground text-background grid size-8 place-items-center font-serif font-bold"
+          >G</span
+        >
+        <strong class="font-serif text-lg tracking-widest"
+          >{config.site.title}</strong
+        >
+      </div>
+      <p class="text-muted-foreground mt-3 max-w-xl leading-7">
+        在墨迹与代码之间，记录学习、作品和那些没有大纲的瞬间。
+      </p>
+    </div>
+    <div
+      class="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs"
+    >
+      <span>© {year} Grimmjow</span>
+      <a
+        href={rssHref}
+        class="hover:text-accent underline decoration-dotted underline-offset-4"
+      >
+        RSS
+      </a>
+      <a
+        href="https://github.com/satnaing/astro-paper"
+        target="_blank"
+        rel="noreferrer"
+        class="hover:text-accent underline decoration-dotted underline-offset-4"
+      >
+        Based on AstroPaper
+      </a>
+    </div>
+  </div>
+</footer>

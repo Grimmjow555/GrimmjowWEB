@@ -1,0 +1,70 @@
+<script>
+  function addHeadingAnchors() {
+    const headings = document.querySelectorAll<HTMLElement>(
+      "#article h2[id], #article h3[id]"
+    );
+    for (const heading of headings) {
+      if (heading.querySelector(".heading-anchor")) continue;
+      const link = document.createElement("a");
+      link.className = "heading-anchor";
+      link.href = `#${heading.id}`;
+      link.setAttribute(
+        "aria-label",
+        `链接到 ${heading.textContent ?? "此标题"}`
+      );
+      link.textContent = "#";
+      heading.append(link);
+    }
+  }
+
+  async function copyText(text: string) {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    throw new Error("Clipboard API unavailable");
+  }
+
+  function addCopyButtons() {
+    const blocks = document.querySelectorAll<HTMLPreElement>("#article pre");
+    for (const block of blocks) {
+      if (block.parentElement?.classList.contains("code-frame")) continue;
+
+      const frame = document.createElement("div");
+      frame.className = "code-frame";
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "copy-code";
+      button.textContent = "复制";
+      button.setAttribute("aria-label", "复制代码");
+
+      const status = document.createElement("span");
+      status.className = "copy-status";
+      status.setAttribute("aria-live", "polite");
+
+      block.before(frame);
+      frame.append(button, status, block);
+      block.tabIndex = 0;
+
+      button.addEventListener("click", async () => {
+        const text = block.querySelector("code")?.textContent ?? "";
+        try {
+          await copyText(text);
+          button.textContent = "已复制";
+          status.textContent = "代码已复制";
+        } catch {
+          button.textContent = "复制失败";
+          status.textContent = "无法复制代码，请手动选择";
+        }
+
+        window.setTimeout(() => {
+          button.textContent = "复制";
+          status.textContent = "";
+        }, 1600);
+      });
+    }
+  }
+
+  addHeadingAnchors();
+  addCopyButtons();
+</script>

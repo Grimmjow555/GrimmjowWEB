@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getPublishedEntries } from "@/utils/content";
+import config from "@/config";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const notes = await getCollection("notes");
+  return paginate(getPublishedEntries(notes), {
+    pageSize: config.content.perPage,
+  });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Layout
+  title={`学习笔记 | ${config.site.title}`}
+  description="按时间整理的公开学习笔记。"
+>
+  <Header />
+  <Breadcrumb />
+  <Main
+    pageTitle="学习笔记"
+    pageDesc="把理解写下来，让知识留下墨迹。这里按发布时间归档，可用标签、搜索与 RSS 继续追踪。"
+    eyebrow="NOTEBOOK / 01"
+  >
+    {
+      page.data.length > 0 ? (
+        <div>
+          {page.data.map((note, index) => (
+            <NoteCard note={note} index={page.start + index} />
+          ))}
+        </div>
+      ) : (
+        <p class="border-foreground border border-dashed p-8">
+          还没有公开笔记。
+        </p>
+      )
+    }
+    <Pagination {page} />
+  </Main>
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

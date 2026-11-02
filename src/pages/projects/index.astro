@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getPublishedEntries } from "@/utils/content";
+import config from "@/config";
+
+const projects = getPublishedEntries(await getCollection("projects"));
+---
+
+<Layout
+  title={`作品 | ${config.site.title}`}
+  description="作品、实验和持续生长的个人项目。"
+>
+  <Header />
+  <Breadcrumb />
+  <Main
+    pageTitle="作品"
+    pageDesc="一些已经落笔、仍在生长或暂时收刀的作品。每张卡片都通向项目背景、技术取舍与当前状态。"
+    eyebrow="WORKS / 02"
+  >
+    {
+      projects.length > 0 ? (
+        <div class="grid gap-8 md:grid-cols-2">
+          {projects.map(project => (
+            <ProjectCard {project} />
+          ))}
+        </div>
+      ) : (
+        <p class="border-foreground border border-dashed p-8">
+          作品正在绘制中。
+        </p>
+      )
+    }
+  </Main>
+  <Footer />
+</Layout>

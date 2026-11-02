@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import Datetime from "./Datetime.astro";
+import Tag from "./Tag.astro";
+import { slugifyAll } from "@/utils/slugify";
+
+type Props = {
+  thought: CollectionEntry<"thoughts">;
+  index: number;
+};
+
+const { thought, index } = Astro.props;
+const { Content } = await render(thought);
+const tags = slugifyAll(thought.data.tags);
+const anchor = `thought-${thought.id}`;
+---
+
+<article
+  id={anchor}
+  class="border-foreground relative grid gap-4 border-b border-dashed py-7 md:grid-cols-[7rem_1fr]"
+>
+  <div>
+    <Datetime pubDatetime={thought.data.pubDatetime} />
+    <span class="text-muted-foreground mt-2 block font-mono text-xs">
+      {String(index + 1).padStart(2, "0")} / 片刻
+    </span>
+  </div>
+  <div class="relative">
+    <span
+      class="bg-accent-bright absolute top-0 -left-1 h-8 w-1"
+      aria-hidden="true"></span>
+    {
+      thought.data.title && (
+        <h2 class="mb-3 pl-4 font-serif text-2xl font-black">
+          {thought.data.title}
+        </h2>
+      )
+    }
+    <div class:list={["app-prose max-w-2xl", { "pl-4": thought.data.title }]}>
+      <Content />
+    </div>
+    <div class="mt-4 flex flex-wrap items-center gap-3">
+      {
+        thought.data.mood && (
+          <span class="border-foreground bg-muted px-2 py-1 font-mono text-xs">
+            mood / {thought.data.mood}
+          </span>
+        )
+      }
+      {
+        tags.length > 0 && (
+          <ul class="flex flex-wrap gap-2">
+            {tags.map((tag, tagIndex) => (
+              <Tag tag={tag} tagName={thought.data.tags[tagIndex]} size="sm" />
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</article>

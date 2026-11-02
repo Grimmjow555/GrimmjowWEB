@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title">
+  <title id="title">GrimmjowWEB 项目封面</title>
+  <defs>
+    <filter id="warp"><feTurbulence baseFrequency=".015 .09" numOctaves="3" seed="5" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="18"/></filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0v42" fill="none" stroke="#0e0e10" stroke-width="1" opacity=".16"/></pattern>
+  </defs>
+  <rect width="1200" height="720" fill="#f4f1e8"/>
+  <rect width="1200" height="720" fill="url(#grid)"/>
+  <path d="M-90 660C110 388 216 646 410 391c137-180 298-30 402-153 118-139 284-81 469 52v430H-90Z" fill="#0e0e10" filter="url(#warp)"/>
+  <circle cx="886" cy="188" r="118" fill="none" stroke="#0e0e10" stroke-width="28"/>
+  <path d="M124 136h406M124 178h278M124 220h352" stroke="#0e0e10" stroke-width="13"/>
+  <path d="m721 464 338-203" stroke="#24dce8" stroke-width="22" stroke-linecap="round"/>
+  <rect x="993" y="72" width="79" height="79" fill="#24dce8"/>
+  <path d="M1032 91v41M1012 112h41" stroke="#0e0e10" stroke-width="8"/>
+</svg>

@@ -1,0 +1,31 @@
+---
+type Props = {
+  index: string;
+  title: string;
+  href?: string;
+  linkLabel?: string;
+};
+
+const { index, title, href, linkLabel = "查看全部" } = Astro.props;
+---
+
+<div
+  class="border-foreground mb-6 flex items-end justify-between gap-4 border-b-2 pb-3"
+>
+  <div class="flex items-baseline gap-3">
+    <span class="text-accent font-mono text-xs font-bold tracking-[0.3em]"
+      >{index}</span
+    >
+    <h2 class="font-serif text-2xl font-black sm:text-3xl">{title}</h2>
+  </div>
+  {
+    href && (
+      <a
+        href={href}
+        class="hover:bg-foreground hover:text-background border-foreground shrink-0 border px-3 py-1.5 font-mono text-xs font-bold no-underline transition-colors"
+      >
+        {linkLabel} ↗
+      </a>
+    )
+  }
+</div>

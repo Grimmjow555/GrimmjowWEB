@@ -1,0 +1,66 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { stripBase, stripLocale } from "@/utils/withBase";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const path = stripLocale(
+  stripBase(Astro.url.pathname).replace(/\/+$/, ""),
+  locale
+);
+const segments = path.split("/").filter(Boolean);
+
+const labels: Record<string, string> = {
+  notes: "笔记",
+  projects: "作品",
+  thoughts: "碎碎念",
+  tags: "标签",
+  about: "关于",
+  search: "搜索",
+};
+
+const decode = (value: string) => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+---
+
+<nav class="app-layout pt-6" aria-label="面包屑">
+  <ol
+    class="text-muted-foreground flex flex-wrap items-center gap-2 font-mono text-xs"
+  >
+    <li>
+      <a href={getRelativeLocaleUrl(locale, "")} class="hover:text-accent"
+        >首页</a
+      >
+    </li>
+    {
+      segments.map((segment, index) => {
+        const current = index === segments.length - 1;
+        return (
+          <li class="flex items-center gap-2">
+            <span aria-hidden="true">/</span>
+            {current ? (
+              <span aria-current="page">
+                {labels[segment] ?? decode(segment)}
+              </span>
+            ) : (
+              <a
+                href={getRelativeLocaleUrl(
+                  locale,
+                  segments.slice(0, index + 1).join("/")
+                )}
+                class="hover:text-accent"
+              >
+                {labels[segment] ?? decode(segment)}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

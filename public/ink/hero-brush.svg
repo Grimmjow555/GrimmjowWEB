@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">原创水墨抽象图形</title>
+  <desc id="desc">浓墨笔触、飞白和网点组成的不规则圆形留白，辅以一道电光青斜线。</desc>
+  <defs>
+    <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".018 .11" numOctaves="3" seed="14" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="dry" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".028" numOctaves="4" seed="8" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="10" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+      <feColorMatrix in="warp" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .82 0"/>
+    </filter>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.2" fill="#0e0e10"/>
+    </pattern>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#24dce8" stop-opacity=".2"/>
+      <stop offset=".5" stop-color="#24dce8"/>
+      <stop offset="1" stop-color="#24dce8" stop-opacity=".08"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="#0e0e10">
+    <path d="M88 544C132 330 332 122 570 102c246-22 493 115 552 342 57 221-101 382-317 373-235-9-397-129-465-196-48-48-58-126-49-207Z" fill="#0e0e10" filter="url(#rough)" opacity=".94"/>
+    <path d="M292 221c92-74 229-109 366-82 146 29 274 129 332 255" stroke-width="18" stroke-linecap="round" filter="url(#dry)" opacity=".5"/>
+    <path d="M234 690c-60-41-105-100-133-168-23-56-28-116-16-175" stroke-width="11" stroke-linecap="round" filter="url(#dry)" opacity=".46"/>
+    <path d="M888 720c76-46 136-119 169-205" stroke-width="24" stroke-linecap="round" filter="url(#dry)" opacity=".7"/>
+  </g>
+  <ellipse cx="601" cy="446" rx="276" ry="224" fill="#f4f1e8"/>
+  <path d="M339 443c26-156 108-266 249-332 38-18 62-19 80-7 15 10 10 35-4 67-28 65-36 158-47 270-8 81-20 150-37 209-13 44-37 60-62 44-56-35-120-98-159-158-17-25-23-55-20-93Z" fill="url(#dots)" opacity=".28"/>
+  <path d="M913 121 278 791" stroke="url(#cyan)" stroke-width="18" stroke-linecap="round" filter="url(#dry)"/>
+  <path d="m948 92 23 35-40 3" fill="#24dce8"/>
+  <g transform="translate(762 690) rotate(-12)">
+    <rect width="104" height="104" fill="#0e0e10"/>
+    <path d="M21 28h62M21 45h44M21 62h54M21 79h35" stroke="#f4f1e8" stroke-width="6"/>
+    <rect x="71" y="17" width="17" height="17" fill="#24dce8"/>
+  </g>
+</svg>

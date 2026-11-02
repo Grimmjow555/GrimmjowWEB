@@ -1,0 +1,69 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import ThoughtEntry from "@/components/ThoughtEntry.astro";
+import { getEntriesByTag, getUniqueTags } from "@/utils/content";
+import config from "@/config";
+
+export const getStaticPaths = (async () => {
+  const [notes, projects, thoughts] = await Promise.all([
+    getCollection("notes"),
+    getCollection("projects"),
+    getCollection("thoughts"),
+  ]);
+  return getUniqueTags([...notes, ...projects, ...thoughts]).map(tag => ({
+    params: { tag: tag.tag },
+    props: { tagName: tag.tagName },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = {
+  tagName: string;
+};
+
+const { tagName } = Astro.props;
+const [notes, projects, thoughts] = await Promise.all([
+  getCollection("notes"),
+  getCollection("projects"),
+  getCollection("thoughts"),
+]);
+const entries = getEntriesByTag(
+  [...notes, ...projects, ...thoughts],
+  Astro.params.tag ?? ""
+);
+---
+
+<Layout
+  title={`#${tagName} | ${config.site.title}`}
+  description={`包含标签 ${tagName} 的学习笔记、作品与碎碎念。`}
+>
+  <Header />
+  <Breadcrumb />
+  <Main
+    pageTitle={`# ${tagName}`}
+    pageDesc={`共找到 ${entries.length} 条相关内容，覆盖笔记、作品和碎碎念。`}
+    eyebrow="RETRIEVED / TAG"
+  >
+    <div class="space-y-12">
+      {
+        entries.map((entry, index) => {
+          if (entry.collection === "notes") {
+            return <NoteCard note={entry} index={index} />;
+          }
+          if (entry.collection === "projects") {
+            return <ProjectCard project={entry} />;
+          }
+          return <ThoughtEntry thought={entry} index={index} />;
+        })
+      }
+    </div>
+  </Main>
+  <Footer />
+</Layout>

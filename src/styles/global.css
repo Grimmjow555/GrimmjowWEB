@@ -1,0 +1,113 @@
+@import "@fontsource-variable/noto-sans-sc/index.css";
+@import "@fontsource-variable/noto-serif-sc/index.css";
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+
+  html {
+    @apply bg-background scroll-smooth motion-reduce:scroll-auto;
+  }
+
+  body {
+    overflow-x: clip;
+    background-image:
+      radial-gradient(
+        circle at 12% 10%,
+        color-mix(in srgb, var(--muted) 36%, transparent) 0 1px,
+        transparent 1.5px
+      ),
+      linear-gradient(
+        115deg,
+        transparent 0 48%,
+        color-mix(in srgb, var(--foreground) 2.5%, transparent) 49% 50%,
+        transparent 51%
+      );
+    background-size:
+      23px 23px,
+      100% 100%;
+  }
+
+  a,
+  button,
+  #main-content {
+    @apply outline-accent outline-offset-2 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility max-w-app {
+  max-width: 72rem;
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4 sm:px-6 lg:px-8;
+}
+
+@utility focus-outline {
+  @apply outline-accent focus-visible:outline-2 focus-visible:outline-dashed;
+}
+
+@layer components {
+  .chapter-label {
+    @apply border-foreground inline-flex border-y-2 px-2 py-1 font-mono text-[0.65rem] font-bold tracking-[0.3em] uppercase;
+  }
+
+  .ink-card {
+    @apply border-foreground bg-panel border-2 shadow-[5px_5px_0_var(--foreground)];
+  }
+
+  .code-frame {
+    @apply border-foreground relative my-7 border-2 shadow-[4px_4px_0_var(--accent-bright)];
+  }
+
+  .code-frame pre {
+    @apply my-0 border-0 shadow-none;
+  }
+
+  .copy-code {
+    @apply bg-foreground text-background hover:bg-accent-bright hover:text-foreground border-foreground absolute end-2 top-2 z-10 border px-2 py-1 font-mono text-[0.68rem] font-bold transition-colors;
+  }
+
+  .copy-status {
+    @apply sr-only;
+  }
+
+  .heading-anchor {
+    @apply text-accent ml-2 font-mono text-sm no-underline opacity-0 transition-opacity;
+  }
+
+  h2:hover .heading-anchor,
+  h3:hover .heading-anchor,
+  .heading-anchor:focus-visible {
+    @apply opacity-100;
+  }
+}
+
+:target {
+  scroll-margin-block: 2rem;
+}

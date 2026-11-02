@@ -1,0 +1,167 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import IconX from "@/assets/icons/IconX.svg";
+import { stripBase, stripLocale } from "@/utils/withBase";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const currentPath = stripLocale(
+  stripBase(Astro.url.pathname).replace(/\/+$/, ""),
+  locale
+);
+
+const navItems = [
+  { label: "笔记", path: "notes" },
+  { label: "作品", path: "projects" },
+  { label: "碎碎念", path: "thoughts" },
+  { label: "标签", path: "tags" },
+  { label: "关于", path: "about" },
+].map(item => ({
+  ...item,
+  href: getRelativeLocaleUrl(locale, item.path),
+}));
+
+const searchHref = getRelativeLocaleUrl(locale, "search");
+const isActive = (path: string) =>
+  currentPath === `/${path}` || currentPath.startsWith(`/${path}/`);
+---
+
+<a
+  id="skip-to-content"
+  href="#main-content"
+  class="bg-foreground text-background focus:bg-accent focus:text-accent-foreground absolute inset-s-4 -top-full z-50 px-4 py-2 font-bold focus:top-3"
+>
+  跳到正文
+</a>
+
+<header
+  class="border-foreground relative z-20 border-b-2 bg-[var(--background)]"
+>
+  <div class="app-layout flex h-18 items-center justify-between gap-4">
+    <a
+      href={getRelativeLocaleUrl(locale, "")}
+      class="group flex items-center gap-3 no-underline"
+      aria-label="Grimmjow 首页"
+    >
+      <span
+        class="bg-foreground text-background group-hover:bg-accent group-hover:text-accent-foreground border-foreground grid size-9 place-items-center border-2 font-serif text-xl font-black shadow-[4px_4px_0_var(--accent-bright)] transition-colors"
+        aria-hidden="true">G</span
+      >
+      <span class="flex flex-col leading-none">
+        <strong class="font-serif text-xl tracking-[0.16em] uppercase">
+          {config.site.title}
+        </strong>
+        <span
+          class="text-muted-foreground mt-1 font-mono text-[0.62rem] tracking-[0.28em]"
+        >
+          INK / NOTES
+        </span>
+      </span>
+    </a>
+
+    <button
+      id="menu-btn"
+      class="focus-outline border-foreground bg-background grid size-10 place-items-center border-2 md:hidden"
+      aria-label="打开菜单"
+      aria-expanded="false"
+      aria-controls="menu-items"
+      data-open-label="打开菜单"
+      data-close-label="关闭菜单"
+    >
+      <IconMenuDeep id="menu-icon" class="size-5" />
+      <IconX id="close-icon" class="hidden size-5" />
+    </button>
+
+    <nav
+      aria-label="主导航"
+      class="max-md:border-foreground max-md:absolute max-md:top-18 max-md:right-0 max-md:left-0 max-md:border-b-2 max-md:bg-[var(--background)]"
+    >
+      <ul id="menu-items" class="hidden items-center gap-1 md:flex">
+        {
+          navItems.map(item => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.path) ? "page" : undefined}
+                class:list={[
+                  "hover:bg-foreground hover:text-background block px-3 py-2 text-sm font-bold tracking-wider no-underline transition-colors",
+                  {
+                    "bg-foreground text-background": isActive(item.path),
+                  },
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a
+            id="header-search"
+            href={searchHref}
+            class="hover:bg-foreground hover:text-background grid size-10 place-items-center no-underline transition-colors"
+            aria-label="搜索内容（Ctrl+K）"
+            title="搜索内容（Ctrl+K）"
+          >
+            <IconSearch class="size-5" />
+          </a>
+        </li>
+        {
+          config.features.lightAndDarkMode && (
+            <li>
+              <button
+                id="theme-btn"
+                type="button"
+                class="hover:bg-foreground hover:text-background grid size-10 place-items-center transition-colors"
+                title="切换明暗主题"
+                aria-label="切换明暗主题"
+              >
+                <IconMoon class="size-5 dark:hidden" />
+                <IconSunHigh class="hidden size-5 dark:block" />
+              </button>
+            </li>
+          )
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>("#menu-btn");
+  const menuItems = document.querySelector<HTMLUListElement>("#menu-items");
+  const menuIcon = document.querySelector("#menu-icon");
+  const closeIcon = document.querySelector("#close-icon");
+  const searchLink =
+    document.querySelector<HTMLAnchorElement>("#header-search");
+
+  menuButton?.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!isOpen));
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen
+        ? (menuButton.dataset.openLabel ?? "打开菜单")
+        : (menuButton.dataset.closeLabel ?? "关闭菜单")
+    );
+    menuItems?.classList.toggle("hidden", isOpen);
+    menuItems?.classList.toggle("flex", !isOpen);
+    menuItems?.classList.toggle("max-md:flex-col", !isOpen);
+    menuItems?.classList.toggle("max-md:p-4", !isOpen);
+    menuIcon?.classList.toggle("hidden", !isOpen);
+    closeIcon?.classList.toggle("hidden", isOpen);
+  });
+
+  document.addEventListener("keydown", event => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      const href = searchLink?.getAttribute("href");
+      if (!href) return;
+      event.preventDefault();
+      window.location.assign(href);
+    }
+  });
+</script>

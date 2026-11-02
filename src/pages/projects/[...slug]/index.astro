@@ -1,0 +1,172 @@
+---
+import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import PostLayout from "@/layouts/PostLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Datetime from "@/components/Datetime.astro";
+import Tag from "@/components/Tag.astro";
+import ArticleEnhancements from "@/components/ArticleEnhancements.astro";
+import { getPublishedEntries } from "@/utils/content";
+import { getAssetPath } from "@/utils/withBase";
+import { slugifyAll } from "@/utils/slugify";
+import config from "@/config";
+
+export const getStaticPaths = (async () => {
+  const projects = getPublishedEntries(await getCollection("projects"));
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = {
+  project: CollectionEntry<"projects">;
+};
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const {
+  title,
+  description,
+  pubDatetime,
+  modDatetime,
+  cover,
+  coverAlt,
+  stack,
+  status,
+  repoUrl,
+  demoUrl,
+  tags,
+} = project.data;
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const projectsHref = getRelativeLocaleUrl(locale, "projects");
+const coverUrl = getAssetPath(cover.replace(/^\//, ""));
+const projectTags = slugifyAll(tags);
+const statusLabels = {
+  active: "进行中",
+  completed: "已完成",
+  archived: "已归档",
+} as const;
+---
+
+<PostLayout
+  title={`${title} | ${config.site.title}`}
+  {description}
+  {pubDatetime}
+  {modDatetime}
+  ogImage={coverUrl}
+>
+  <Header />
+  <Breadcrumb />
+
+  <main id="main-content" class="app-layout pt-8 pb-10" data-pagefind-body>
+    <a
+      href={projectsHref}
+      class="font-mono text-xs font-bold underline decoration-dashed underline-offset-4"
+    >
+      ← 返回作品
+    </a>
+
+    <section class="mt-8 grid gap-9 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+      <figure class="relative">
+        <div
+          class="border-foreground bg-accent-bright absolute inset-3 z-0 rotate-1 border-2"
+          aria-hidden="true"
+        >
+        </div>
+        <img
+          src={coverUrl}
+          alt={coverAlt}
+          width="1200"
+          height="720"
+          class="border-foreground relative z-10 w-full border-2 object-cover"
+        />
+      </figure>
+      <div class="lg:pb-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <span
+            class="bg-foreground text-background px-2 py-1 font-mono text-xs font-bold tracking-wider"
+          >
+            {statusLabels[status]}
+          </span>
+          <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+        </div>
+        <h1
+          class="mt-5 font-serif text-4xl leading-tight font-black sm:text-6xl"
+        >
+          {title}
+        </h1>
+        <p class="text-muted-foreground mt-5 text-lg leading-8">
+          {description}
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {
+            stack.map(tech => (
+              <span class="border-foreground bg-panel border px-2 py-1 font-mono text-xs">
+                {tech}
+              </span>
+            ))
+          }
+        </div>
+        {
+          (repoUrl || demoUrl) && (
+            <div class="mt-7 flex flex-wrap gap-3">
+              {repoUrl && (
+                <a
+                  href={repoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="bg-foreground text-background hover:bg-accent-bright hover:text-foreground border-foreground border-2 px-4 py-2 font-bold no-underline transition-colors"
+                >
+                  源代码 ↗
+                </a>
+              )}
+              {demoUrl && (
+                <a
+                  href={demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="hover:bg-foreground hover:text-background border-foreground border-2 px-4 py-2 font-bold no-underline transition-colors"
+                >
+                  在线演示 ↗
+                </a>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <div class="border-foreground mx-auto mt-14 max-w-4xl border-t-2 pt-10">
+      <article id="article" class="app-prose">
+        <Content />
+      </article>
+      <ArticleEnhancements />
+
+      {
+        projectTags.length > 0 && (
+          <ul class="mt-10 flex flex-wrap gap-2">
+            {projectTags.map((tag, index) => (
+              <Tag tag={tag} tagName={tags[index]} size="sm" />
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div class="mt-10 text-right">
+      <a
+        href="#top"
+        class="font-mono text-xs font-bold underline decoration-dashed underline-offset-4"
+      >
+        返回顶部 ↑
+      </a>
+    </div>
+  </main>
+  <Footer />
+</PostLayout>

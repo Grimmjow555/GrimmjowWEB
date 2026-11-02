@@ -1,0 +1,90 @@
+@plugin "@tailwindcss/typography";
+
+@layer base {
+  .app-prose {
+    @apply prose prose-neutral max-w-none;
+    @apply prose-headings:font-serif prose-headings:font-black;
+    @apply prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground;
+    @apply prose-a:text-foreground prose-a:decoration-dashed prose-a:decoration-accent prose-a:underline-offset-4 hover:prose-a:text-accent;
+    @apply prose-blockquote:border-accent prose-blockquote:bg-muted/45 prose-blockquote:py-1 prose-blockquote:not-italic;
+    @apply prose-code:text-foreground prose-code:before:content-none prose-code:after:content-none;
+    @apply prose-hr:border-border prose-img:border-border prose-img:border-2;
+
+    font-size: 1.05rem;
+    line-height: 1.9;
+
+    code,
+    pre {
+      font-family: var(--type-mono);
+    }
+
+    h2 {
+      @apply border-foreground mt-12 border-b pb-2;
+    }
+
+    h3 {
+      @apply mt-8;
+    }
+
+    p,
+    ul,
+    ol {
+      @apply text-foreground;
+    }
+
+    li {
+      @apply marker:text-accent;
+    }
+
+    code:not(.astro-code code) {
+      @apply bg-muted rounded-none px-1.5 py-0.5 font-mono text-[0.9em];
+    }
+
+    pre {
+      @apply bg-(--shiki-light-bg) text-(--shiki-light);
+    }
+
+    html[data-theme="dark"] & pre {
+      @apply bg-(--shiki-dark-bg) text-(--shiki-dark);
+    }
+
+    table {
+      th,
+      td {
+        @apply border-border border p-2;
+      }
+    }
+
+    .table-wrapper {
+      @apply border-foreground my-7 overflow-x-auto border;
+    }
+
+    .katex-display {
+      @apply text-foreground overflow-x-auto overflow-y-hidden py-3;
+    }
+  }
+
+  .astro-code {
+    @apply outline-border flex border-0 bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+    font-family: var(--type-mono);
+  }
+
+  html[data-theme="dark"] .astro-code {
+    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+  }
+
+  .astro-code {
+    .line.diff.add {
+      @apply relative inline-block w-full bg-emerald-400/20 before:absolute before:-left-3 before:text-emerald-500 before:content-['+'];
+    }
+    .line.diff.remove {
+      @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+    }
+    .line.highlighted {
+      @apply inline-block w-full bg-slate-400/20;
+    }
+    .highlighted-word {
+      @apply border-border rounded-sm border px-0.5 py-px;
+    }
+  }
+}

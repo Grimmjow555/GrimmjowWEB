@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Datetime from "./Datetime.astro";
+import Tag from "./Tag.astro";
+import { slugifyAll } from "@/utils/slugify";
+import config from "@/config";
+
+type Props = {
+  note: CollectionEntry<"notes">;
+  index: number;
+};
+
+const { note, index } = Astro.props;
+const { id, data } = note;
+const locale = Astro.currentLocale ?? config.site.lang;
+const href = getRelativeLocaleUrl(locale, `notes/${id}/`);
+const tags = slugifyAll(data.tags);
+---
+
+<article
+  class="group border-foreground bg-background grid border-2 border-r-0 border-l-0 py-6 first:border-t-0 md:grid-cols-[5rem_1fr_auto] md:gap-6"
+>
+  <span class="text-muted-foreground font-mono text-xs tracking-[0.2em]">
+    {String(index + 1).padStart(2, "0")}
+  </span>
+  <div>
+    <a href={href} class="no-underline">
+      <h3
+        class="group-hover:text-accent font-serif text-2xl leading-tight font-black transition-colors"
+      >
+        {data.title}
+      </h3>
+    </a>
+    <p class="text-muted-foreground mt-3 max-w-2xl leading-7">
+      {data.description}
+    </p>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {
+        tags.map((tag, tagIndex) => (
+          <Tag tag={tag} tagName={data.tags[tagIndex]} size="sm" />
+        ))
+      }
+    </ul>
+  </div>
+  <div class="mt-4 md:mt-0 md:text-right">
+    <Datetime
+      pubDatetime={data.pubDatetime}
+      modDatetime={data.modDatetime}
+      timezone={data.timezone}
+    />
+    <a
+      href={href}
+      class="group-hover:bg-accent-bright border-foreground mt-4 inline-flex border-b py-1 font-mono text-xs font-bold no-underline"
+    >
+      阅读笔记 →
+    </a>
+  </div>
+</article>

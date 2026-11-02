@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getAssetPath } from "@/utils/withBase";
+import config from "@/config";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  featured?: boolean;
+};
+
+const { project, featured = false } = Astro.props;
+const { id, data } = project;
+const locale = Astro.currentLocale ?? config.site.lang;
+const href = getRelativeLocaleUrl(locale, `projects/${id}/`);
+const cover = getAssetPath(data.cover.replace(/^\//, ""));
+const statusLabels = {
+  active: "进行中",
+  completed: "已完成",
+  archived: "已归档",
+} as const;
+---
+
+<article
+  class:list={[
+    "group border-foreground bg-background relative overflow-hidden border-2 shadow-[6px_6px_0_var(--foreground)] transition-transform duration-200 motion-safe:hover:-translate-y-1",
+    { "md:grid md:grid-cols-[1.2fr_1fr]": featured },
+  ]}
+>
+  <a
+    href={href}
+    class="border-foreground block overflow-hidden max-md:border-b-2 md:border-r-2"
+  >
+    <img
+      src={cover}
+      alt={data.coverAlt}
+      width="1200"
+      height="720"
+      loading="lazy"
+      class="aspect-[5/3] w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.02]"
+    />
+  </a>
+  <div class="flex flex-col p-5 sm:p-6">
+    <div class="mb-4 flex items-center justify-between gap-3">
+      <span
+        class="bg-foreground text-background px-2 py-1 font-mono text-[0.68rem] font-bold tracking-wider"
+      >
+        {statusLabels[data.status]}
+      </span>
+      <span class="text-muted-foreground font-mono text-xs"
+        >{data.stack[0]}</span
+      >
+    </div>
+    <a href={href} class="no-underline">
+      <h3
+        class="group-hover:text-accent font-serif text-2xl leading-tight font-black"
+      >
+        {data.title}
+      </h3>
+    </a>
+    <p class="text-muted-foreground mt-3 flex-1 text-sm leading-7">
+      {data.description}
+    </p>
+    <div class="mt-5 flex flex-wrap gap-2 font-mono text-[0.68rem]">
+      {
+        data.stack.map(tech => (
+          <span class="border-foreground border px-2 py-1">{tech}</span>
+        ))
+      }
+    </div>
+    <a
+      href={href}
+      class="mt-6 inline-flex font-mono text-xs font-bold underline decoration-dashed underline-offset-4"
+    >
+      查看作品详情 →
+    </a>
+  </div>
+</article>

@@ -1,0 +1,47 @@
+---
+import type { Page } from "astro";
+import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+
+type Props = {
+  page: Page<unknown>;
+};
+
+const { page } = Astro.props;
+---
+
+{
+  page.lastPage > 1 && (
+    <nav
+      class="border-foreground mt-10 flex items-center justify-between border-y-2 py-4"
+      aria-label="分页导航"
+    >
+      {page.url.prev ? (
+        <a
+          href={page.url.prev}
+          class="hover:bg-foreground hover:text-background flex items-center gap-2 px-3 py-2 font-bold no-underline transition-colors"
+        >
+          <IconArrowLeft class="size-4" />
+          上一页
+        </a>
+      ) : (
+        <span class="text-muted-foreground px-3 py-2">上一页</span>
+      )}
+      <span class="font-mono text-sm">
+        {String(page.currentPage).padStart(2, "0")} /{" "}
+        {String(page.lastPage).padStart(2, "0")}
+      </span>
+      {page.url.next ? (
+        <a
+          href={page.url.next}
+          class="hover:bg-foreground hover:text-background flex items-center gap-2 px-3 py-2 font-bold no-underline transition-colors"
+        >
+          下一页
+          <IconArrowRight class="size-4" />
+        </a>
+      ) : (
+        <span class="text-muted-foreground px-3 py-2">下一页</span>
+      )}
+    </nav>
+  )
+}
