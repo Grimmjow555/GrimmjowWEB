@@ -1,5 +1,5 @@
 ---
-title: Astro Content Collections 让内容在构建时报错1
+title: Astro Content Collections 让内容在构建时报错
 description: 用 Zod 定义 frontmatter，把内容错误提前到构建阶段，而不是等浏览器里出现空白。
 pubDatetime: 2026-11-02
 modDatetime: 2026-11-02
